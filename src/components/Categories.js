@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
+// 화면상에 보여질 이름을 text에 저장
+// API 주소에 넣을 카테고리는 name으로 저장
+
 const categories = [
   {
     name: "all",
@@ -72,18 +75,24 @@ const Category = styled(NavLink)`
 
 const Categories = ({ onSelect, category }) => {
   return (
-    <CategoriesBlock>
-      {categories.map((c) => (
-        <Category
-          key={c.name}
-          activeClassName="active"
-          exact={c.name === "all"}
-          to={c.name === "all" ? "/" : `/${c.name}`}
-        >
-          {c.text}
-        </Category>
-      ))}
-    </CategoriesBlock>
+    <div className="category">
+      <CategoriesBlock>
+        {/* map으로 각 카테고리들(NavLink)을 생성 */}
+        {categories.map((c) => (
+          //url 파라미터를 통해 category 값을 관리하는 방법
+          <Category
+            //key에는 고유한 이름이 들어가도록 c.name을 씀
+            key={c.name}
+            //active 상태면 active 클래스 추가, 아니면 클래스 없음
+            activeClassName="active"
+            exact={c.name === "all"}
+            to={c.name === "all" ? "/" : `/${c.name}`}
+          >
+            {c.text}
+          </Category>
+        ))}
+      </CategoriesBlock>
+    </div>
   );
 };
 
